@@ -125,7 +125,8 @@ td,th{border-bottom:1px solid var(--fg);padding:6px;text-align:left}
       <label>Categoria<select id="fc"><option>Polaroid</option><option>Foto com ímã</option><option>Adesivo</option><option>Etiqueta</option></select></label>
       <label>Preço (R$)<input id="fp" type="number" step="0.01"></label>
       <label>Preço promo (R$)<input id="fo" type="number" step="0.01"></label>
-      <label>URL da imagem<input id="fi" placeholder="https://..."></label>
+      <label>Foto do computador<input id="ff" type="file" accept="image/*"><img id="fv" class="hid" alt="" style="width:80px;height:80px;object-fit:cover;border:2px solid var(--fg)"></label>
+      <label>ou link da imagem<input id="fi" placeholder="https://..."></label>
       <label>Ativo<select id="fa"><option value="1">Sim</option><option value="0">Não</option></select></label>
     </div>
     <div style="display:flex;gap:8px;margin:10px 0"><button class="btn" onclick="saveP()">Salvar produto</button><button class="cb o" onclick="clrF()">Limpar</button></div>
@@ -245,14 +246,27 @@ function ui(){
 }
 
 /* ---------- Admin ---------- */
-function clrF(){["fn","fp","fo","fi"].forEach(function(i){$(i).value=""});$("fa").value="1";$("fn").dataset.id=""}
+var imgData=null;
+function clrF(){["fn","fp","fo","fi"].forEach(function(i){$(i).value=""});$("fa").value="1";$("fn").dataset.id="";imgData=null;$("ff").value="";$("fv").classList.add("hid")}
+$("ff").onchange=function(e){
+  var f=e.target.files[0];if(!f)return;
+  var r=new FileReader();
+  r.onload=function(){var im=new Image();im.onload=function(){
+    var k=Math.min(1,700/Math.max(im.width,im.height)),c=document.createElement("canvas");
+    c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);
+    c.getContext("2d").drawImage(im,0,0,c.width,c.height);
+    imgData=c.toDataURL("image/jpeg",0.8);$("fv").src=imgData;$("fv").classList.remove("hid");$("fi").value="";
+  };im.src=r.result};
+  r.readAsDataURL(f);
+};
 function saveP(){
-  var d={nome:$("fn").value.trim(),categoria:$("fc").value,preco:parseFloat($("fp").value)||0,promo:parseFloat($("fo").value)||0,imagem:$("fi").value.trim(),ativo:$("fa").value==="1"};
+  var d={nome:$("fn").value.trim(),categoria:$("fc").value,preco:parseFloat($("fp").value)||0,promo:parseFloat($("fo").value)||0,imagem:imgData||$("fi").value.trim(),ativo:$("fa").value==="1"};
   if(!d.nome||!d.preco){alert("Preencha nome e preço.");return}
+  if(d.imagem.length>900000){alert("Imagem muito grande. Use uma foto menor.");return}
   var id=$("fn").dataset.id,c=db.collection("produtos");
   (id?c.doc(id).set(d):c.add(d)).then(clrF).catch(function(e){alert(e.message)});
 }
-function edit(id){var x=find(id);$("fn").value=x.nome;$("fn").dataset.id=id;$("fc").value=x.categoria;$("fp").value=x.preco;$("fo").value=x.promo||"";$("fi").value=x.imagem||"";$("fa").value=x.ativo===false?"0":"1";scrollTo(0,0)}
+function edit(id){var x=find(id);$("fn").value=x.nome;$("fn").dataset.id=id;$("fc").value=x.categoria;$("fp").value=x.preco;$("fo").value=x.promo||"";imgData=null;$("ff").value="";if(x.imagem&&x.imagem.indexOf("data:")===0){imgData=x.imagem;$("fi").value="";$("fv").src=x.imagem;$("fv").classList.remove("hid")}else{$("fi").value=x.imagem||"";$("fv").classList.add("hid")}$("fa").value=x.ativo===false?"0":"1";scrollTo(0,0)}
 function del(id){if(confirm("Excluir produto?"))db.collection("produtos").doc(id).delete()}
 function tbl(){
   var h="<tr><th>Produto</th><th>Cat.</th><th>Preço</th><th>Promo</th><th>Ativo</th><th></th></tr>";
@@ -298,7 +312,7 @@ if(DEMO){
   });
   auth.onAuthStateChanged(function(u){
     user=u;isAdm=false;ui();
-    if(u)db.collection("admins").doc(u.uid).get().then(function(d){isAdm=d.exists;ui()}).catch(function(){});
+    if(u){console.log("Seu UID:",u.uid);db.collection("admins").doc(u.uid).get().then(function(d){isAdm=d.exists;console.log(d.exists?"Admin OK":"Não existe documento admins/"+u.uid);ui()}).catch(function(e){console.error("Erro ao ler admins:",e.code,e.message)})}
   });
 }
 </script>
