@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CLICK!CLACK — Polaroids, ímãs, adesivos e etiquetas</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f2f0ea;--fg:#0a0a0a;--card:#fff;--ac:#c6ff00;--pk:#ff4fa3;box-sizing:border-box}
+@media (prefers-color-scheme:dark){:root{--bg:#0a0a0a;--fg:#f2f0ea;--card:#161616}}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--fg);font-family:'Space Grotesk',system-ui,sans-serif;overflow-x:hidden}
+h1,h2,.d{font-family:'Archivo Black',Impact,sans-serif;text-transform:uppercase;line-height:.9}
+.mq{background:var(--ac);color:#0a0a0a;overflow:hidden;white-space:nowrap;font-weight:700;font-size:13px;text-transform:uppercase;padding:8px 0}
+.mq span{display:inline-block;padding-left:100%;animation:m 22s linear infinite}
+@keyframes m{to{transform:translateX(-100%)}}
+header{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:2px solid var(--fg);position:sticky;top:0;background:var(--bg);z-index:5;gap:10px}
+.logo{font-family:'Archivo Black';font-size:24px;letter-spacing:-1px}
+nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.cb,.btn,.add{font:700 12px 'Space Grotesk',sans-serif;text-transform:uppercase;cursor:pointer;border:2px solid var(--fg);background:var(--fg);color:var(--bg);padding:9px 14px;text-decoration:none;display:inline-block}
+.cb.o{background:none;color:var(--fg)}
+.cb:hover,.btn:hover,.add:hover{background:var(--ac);color:#0a0a0a}
+.btn{padding:16px 28px;font-size:14px}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;border-bottom:2px solid var(--fg);min-height:60vh}
+.hero>div:first-child{padding:40px 20px;display:flex;flex-direction:column;justify-content:space-between;gap:30px}
+h1{font-size:clamp(48px,10vw,140px);letter-spacing:-3px}
+h1 em{font-style:normal;background:var(--ac);color:#0a0a0a;padding:0 8px}
+.stage{position:relative;background:var(--pk);border-left:2px solid var(--fg);overflow:hidden;min-height:300px}
+.stage .pol{position:absolute;width:46%}
+.p1{left:8%;top:10%;transform:rotate(-8deg)}.p2{right:6%;top:30%;transform:rotate(7deg)}.p3{left:22%;bottom:6%;transform:rotate(-2deg)}
+.pol{background:#fff;padding:8% 8% 22%;box-shadow:6px 6px 0 #0a0a0a;border:2px solid #0a0a0a;position:relative}
+.pol i{display:block;aspect-ratio:1;background:var(--c1)}
+.pol.mg::after{content:"";position:absolute;bottom:5%;left:50%;width:22px;height:22px;margin-left:-11px;border-radius:50%;background:#e33;border:2px solid #0a0a0a}
+.cat{display:flex;gap:10px;padding:16px 20px;border-bottom:2px solid var(--fg);flex-wrap:wrap;align-items:center}
+.cat h2{font-size:28px;margin-right:auto}
+.ch{border:2px solid var(--fg);background:none;color:var(--fg);padding:8px 16px;font:700 13px 'Space Grotesk';text-transform:uppercase;cursor:pointer;border-radius:99px}
+.ch.on,.ch:hover{background:var(--ac);color:#0a0a0a}
+.grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.it{border-right:2px solid var(--fg);border-bottom:2px solid var(--fg);padding:16px;display:flex;flex-direction:column;gap:10px;position:relative}
+.it:hover{background:var(--card)}
+.img{aspect-ratio:1;display:grid;place-items:center;background:var(--c2);border:2px solid var(--fg);overflow:hidden}
+.img img{width:100%;height:100%;object-fit:cover}
+.img .pol{width:62%}
+.sk{width:60%;aspect-ratio:1;border-radius:50% 50% 50% 8%;background:var(--c1);border:4px solid #fff;box-shadow:0 0 0 2px #0a0a0a;display:grid;place-items:center;font:900 22px 'Archivo Black';color:#0a0a0a;transform:rotate(-8deg)}
+.lb{width:78%;padding:14px 10px;background:#fff;color:#0a0a0a;border:2px solid #0a0a0a;text-align:center;font:900 15px 'Archivo Black';text-transform:uppercase;transform:rotate(3deg);box-shadow:4px 4px 0 var(--c1)}
+.tag{font-size:11px;font-weight:700;text-transform:uppercase;opacity:.7}
+.nm{font:900 18px 'Archivo Black';text-transform:uppercase}
+.row{display:flex;justify-content:space-between;align-items:center;margin-top:auto;gap:6px}
+.pr{font-weight:700;font-size:18px}.pr s{font-size:13px;opacity:.55;margin-right:6px}
+.off{position:absolute;top:24px;left:24px;background:var(--ac);color:#0a0a0a;border:2px solid #0a0a0a;font:900 12px 'Archivo Black';padding:4px 8px;z-index:1;transform:rotate(-4deg)}
+footer{padding:40px 20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;align-items:end;border-top:2px solid var(--fg)}
+footer .d{font-size:clamp(40px,9vw,100px)}
+.dr{position:fixed;top:0;right:0;height:100%;width:min(420px,100%);background:var(--bg);border-left:2px solid var(--fg);transform:translateX(105%);transition:.3s;z-index:10;display:flex;flex-direction:column;padding:20px}
+.dr.o{transform:none}
+.ln{display:flex;justify-content:space-between;gap:8px;padding:10px 0;border-bottom:1px solid var(--fg);font-weight:600}
+.ln button{background:none;border:1px solid var(--fg);color:var(--fg);width:24px;cursor:pointer}
+.mod{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;place-items:center;z-index:20;padding:16px}
+.mod.o{display:grid}
+.box{background:var(--bg);border:2px solid var(--fg);padding:24px;width:min(420px,100%);display:flex;flex-direction:column;gap:12px;box-shadow:8px 8px 0 var(--ac)}
+.box.w{width:min(980px,100%);max-height:92vh;overflow:auto}
+input,select,textarea{font:inherit;padding:10px;border:2px solid var(--fg);background:var(--card);color:var(--fg);width:100%}
+label{font-size:12px;font-weight:700;text-transform:uppercase;display:flex;flex-direction:column;gap:4px}
+.fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+table{width:100%;border-collapse:collapse;font-size:13px}
+td,th{border-bottom:1px solid var(--fg);padding:6px;text-align:left}
+.msg{font-size:13px;font-weight:700;color:#e33}
+.hid{display:none!important}
+@media(max-width:800px){.hero{grid-template-columns:1fr}.stage{border-left:0;border-top:2px solid var(--fg)}.grid{grid-template-columns:repeat(2,1fr)}.it{padding:10px}.nm{font-size:14px}.off{top:16px;left:16px}}
+</style>
+</head>
+<body>
+<div class="mq"><span id="aviso">★ Fotos reveladas em 48h ★ Ímãs, adesivos e etiquetas personalizadas ★</span></div>
+<header>
+  <div class="logo">CLICK!CLACK</div>
+  <nav>
+    <button class="cb o hid" id="bAdm" onclick="op('mAdm')">⚙ Admin</button>
+    <button class="cb o" id="bLog" onclick="op('mAuth')">Entrar</button>
+    <button class="cb o hid" id="bOut" onclick="auth.signOut()">Sair</button>
+    <button class="cb" onclick="tg()">Sacola (<span id="n">0</span>)</button>
+  </nav>
+</header>
+
+<section class="hero">
+  <div><span class="tag" id="oi">Drop 01 — Feito à mão no Brasil</span>
+    <h1>Suas fotos <em>na vida real.</em></h1>
+    <div><a class="btn" href="#loja">Comprar agora →</a></div></div>
+  <div class="stage"><div class="pol p1" style="--c1:#3a5bff"><i></i></div><div class="pol mg p2" style="--c1:#ffb400"><i></i></div><div class="pol p3" style="--c1:#0a0a0a"><i></i></div></div>
+</section>
+
+<section class="cat" id="loja">
+  <h2>Loja</h2>
+  <button class="ch on" data-f="all">Tudo</button><button class="ch" data-f="Polaroid">Polaroids</button><button class="ch" data-f="Foto com ímã">Fotos com ímã</button><button class="ch" data-f="Adesivo">Adesivos</button><button class="ch" data-f="Etiqueta">Etiquetas</button>
+</section>
+<section class="grid" id="g"></section>
+<footer><div class="d">Click!<br>Clack.</div><div><b>Instagram</b> @seuperfil<br><b>WhatsApp</b> (00) 00000-0000</div></footer>
+
+<aside class="dr" id="dr">
+  <div style="display:flex;justify-content:space-between;align-items:center"><h2 style="font-size:32px">Sacola</h2><button class="cb" onclick="tg()">Fechar</button></div>
+  <div id="ci" style="flex:1;overflow:auto;margin:16px 0"></div>
+  <div class="row" style="margin:0 0 12px"><b>Total</b><span class="pr" id="tt">R$ 0,00</span></div>
+  <button class="btn" onclick="checkout()">Finalizar no WhatsApp</button>
+  <p class="msg" id="cm" style="margin-top:8px"></p>
+</aside>
+
+<div class="mod" id="mAuth"><div class="box">
+  <h2 id="at" style="font-size:30px">Entrar</h2>
+  <label id="lN" class="hid">Nome<input id="aN"></label>
+  <label>E-mail<input id="aE" type="email"></label>
+  <label>Senha<input id="aS" type="password"></label>
+  <p class="msg" id="am"></p>
+  <button class="btn" id="aB" onclick="doAuth()">Entrar</button>
+  <button class="cb o" onclick="sw()" id="aT">Criar conta</button>
+  <button class="cb o" onclick="cl('mAuth')">Fechar</button>
+</div></div>
+
+<div class="mod" id="mAdm"><div class="box w">
+  <div style="display:flex;justify-content:space-between;align-items:center"><h2 style="font-size:30px">Painel Admin</h2><button class="cb" onclick="cl('mAdm')">Fechar</button></div>
+  <div class="tabs"><button class="cb" onclick="tab('t1')">Produtos</button><button class="cb" onclick="tab('t2')">Importar</button><button class="cb" onclick="tab('t3')">Promoções</button><button class="cb" onclick="tab('t4')">Pedidos</button></div>
+
+  <div id="t1">
+    <div class="fg">
+      <label>Nome<input id="fn"></label>
+      <label>Categoria<select id="fc"><option>Polaroid</option><option>Foto com ímã</option><option>Adesivo</option><option>Etiqueta</option></select></label>
+      <label>Preço (R$)<input id="fp" type="number" step="0.01"></label>
+      <label>Preço promo (R$)<input id="fo" type="number" step="0.01"></label>
+      <label>URL da imagem<input id="fi" placeholder="https://..."></label>
+      <label>Ativo<select id="fa"><option value="1">Sim</option><option value="0">Não</option></select></label>
+    </div>
+    <div style="display:flex;gap:8px;margin:10px 0"><button class="btn" onclick="saveP()">Salvar produto</button><button class="cb o" onclick="clrF()">Limpar</button></div>
+    <div style="overflow:auto"><table id="tb"></table></div>
+  </div>
+
+  <div id="t2" class="hid">
+    <p>Cole uma planilha em CSV (cabeçalho: <b>nome;categoria;preco;promo;imagem</b>) ou escolha um arquivo .csv.</p>
+    <input type="file" id="csvf" accept=".csv,.txt">
+    <textarea id="csv" rows="8" placeholder="nome;categoria;preco;promo;imagem&#10;Kit 10 Polaroids;Polaroid;29,90;24,90;"></textarea>
+    <button class="btn" onclick="imp()">Importar produtos</button>
+    <p class="msg" id="im"></p>
+  </div>
+
+  <div id="t3" class="hid">
+    <div class="fg">
+      <label>Desconto geral na loja (%)<input id="cd" type="number" min="0" max="90"></label>
+      <label>Aviso da faixa de cima<input id="ca"></label>
+      <label>WhatsApp (DDI+DDD+número)<input id="cw" placeholder="5511999999999"></label>
+    </div>
+    <button class="btn" style="margin-top:10px" onclick="saveC()">Salvar promoções</button>
+    <p class="msg" id="cmm"></p>
+  </div>
+
+  <div id="t4" class="hid"><div style="overflow:auto"><table id="po"></table></div></div>
+</div></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script>
+/* ===== COLE AQUI O SEU firebaseConfig (Console Firebase > Configurações do projeto > Seus apps) ===== */
+var CFG=window.FIREBASE_CONFIG||{apiKey:"COLE_AQUI"};
+/* ================================================================================================= */
+var DEMO=CFG.apiKey==="COLE_AQUI",auth,db;
+var P=[],cart={},fl="all",user=null,isAdm=false,conf={desconto:0,aviso:"",whats:""},signup=false;
+var COL=["#3a5bff","#ff4fa3","#c6ff00","#ffb400","#ffe94d"];
+var DEMOP=[
+{id:"d1",nome:"Kit 10 Polaroids",categoria:"Polaroid",preco:29.9,ativo:true},
+{id:"d2",nome:"Foto com ímã 6un",categoria:"Foto com ímã",preco:34.9,promo:29.9,ativo:true},
+{id:"d3",nome:"Cartela Adesivos A5",categoria:"Adesivo",preco:14.9,ativo:true},
+{id:"d4",nome:"Etiquetas Nome 30un",categoria:"Etiqueta",preco:19.9,ativo:true}];
+function $(i){return document.getElementById(i)}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function R(v){return "R$ "+Number(v).toFixed(2).replace(".",",")}
+function op(i){$(i).classList.add("o")}function cl(i){$(i).classList.remove("o")}
+function tg(){$("dr").classList.toggle("o")}
+function tab(t){["t1","t2","t3","t4"].forEach(function(x){$(x).classList.toggle("hid",x!==t)});if(t==="t4")loadO()}
+function price(x){
+  var p=Number(x.preco)||0,o=Number(x.promo)||0,old=null;
+  if(o>0&&o<p){old=p;p=o}
+  else if(conf.desconto>0){old=p;p=Math.round(p*(100-conf.desconto))/100}
+  return{p:p,old:old}
+}
+function vis(x,i){
+  if(x.imagem)return '<img src="'+esc(x.imagem)+'" alt="'+esc(x.nome)+'" loading="lazy">';
+  var s="--c1:"+COL[i%COL.length],c=x.categoria;
+  if(c==="Polaroid")return '<div class="pol" style="'+s+'"><i></i></div>';
+  if(c==="Foto com ímã")return '<div class="pol mg" style="'+s+'"><i></i></div>';
+  if(c==="Adesivo")return '<div class="sk" style="'+s+'">★</div>';
+  return '<div class="lb" style="'+s+'">'+esc(x.nome.slice(0,14))+'</div>';
+}
+function draw(){
+  var h="";
+  P.forEach(function(x,i){
+    if(x.ativo===false||(fl!=="all"&&x.categoria!==fl))return;
+    var q=price(x),pc=q.old?'<s>'+R(q.old)+'</s>':'';
+    h+='<article class="it">'+(q.old?'<span class="off">-'+Math.round(100-q.p/q.old*100)+'%</span>':'')+'<div class="img" style="background:'+COL[(i+2)%COL.length]+'">'+vis(x,i)+'</div><span class="tag">'+esc(x.categoria)+'</span><div class="nm">'+esc(x.nome)+'</div><div class="row"><span class="pr">'+pc+R(q.p)+'</span><button class="add" onclick="ad(\''+x.id+'\')">+ Sacola</button></div></article>';
+  });
+  $("g").innerHTML=h||'<p style="padding:30px">Nenhum produto por aqui ainda.</p>';
+}
+function find(id){return P.filter(function(x){return x.id===id})[0]}
+function ad(id){cart[id]=(cart[id]||0)+1;up();$("dr").classList.add("o")}
+function chg(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];up()}
+function total(){var t=0;Object.keys(cart).forEach(function(id){var x=find(id);if(x)t+=price(x).p*cart[id]});return t}
+function up(){
+  var h="",q=0;
+  Object.keys(cart).forEach(function(id){
+    var x=find(id);if(!x){delete cart[id];return}
+    q+=cart[id];
+    h+='<div class="ln"><span>'+esc(x.nome)+'</span><span><button onclick="chg(\''+id+'\',-1)">−</button> '+cart[id]+' <button onclick="chg(\''+id+'\',1)">+</button></span></div>';
+  });
+  $("ci").innerHTML=q?h:"<p>Sua sacola está vazia.</p>";
+  $("n").textContent=q;$("tt").textContent=R(total());
+}
+function checkout(){
+  if(!Object.keys(cart).length){$("cm").textContent="Sacola vazia.";return}
+  if(!user&&!DEMO){$("cm").textContent="Entre ou crie sua conta para finalizar.";op("mAuth");return}
+  $("cm").textContent="";
+  var itens=[],m="Oi! Quero fazer um pedido:\n";
+  Object.keys(cart).forEach(function(id){var x=find(id),pp=price(x).p;itens.push({id:id,nome:x.nome,qtd:cart[id],preco:pp});m+="• "+cart[id]+"x "+x.nome+" ("+R(pp)+")\n"});
+  m+="Total: "+R(total());
+  if(user)m+="\nCliente: "+(user.displayName||user.email);
+  var go=function(){window.open("https://wa.me/"+(conf.whats||"5500000000000")+"?text="+encodeURIComponent(m),"_blank");cart={};up()};
+  if(DEMO)return go();
+  db.collection("pedidos").add({uid:user.uid,email:user.email,itens:itens,total:total(),criado:firebase.firestore.FieldValue.serverTimestamp()}).then(go).catch(function(e){$("cm").textContent="Erro: "+e.message});
+}
+document.querySelectorAll(".ch").forEach(function(b){b.onclick=function(){document.querySelectorAll(".ch").forEach(function(c){c.classList.remove("on")});b.classList.add("on");fl=b.dataset.f;draw()}});
+
+/* ---------- Auth ---------- */
+function sw(){signup=!signup;$("at").textContent=signup?"Criar conta":"Entrar";$("aB").textContent=signup?"Cadastrar":"Entrar";$("aT").textContent=signup?"Já tenho conta":"Criar conta";$("lN").classList.toggle("hid",!signup);$("am").textContent=""}
+function doAuth(){
+  if(DEMO){$("am").textContent="Configure o Firebase primeiro (firebaseConfig no código).";return}
+  var e=$("aE").value.trim(),s=$("aS").value,n=$("aN").value.trim();
+  var p=signup?auth.createUserWithEmailAndPassword(e,s).then(function(c){return c.user.updateProfile({displayName:n}).then(function(){return db.collection("users").doc(c.user.uid).set({nome:n,email:e,criado:firebase.firestore.FieldValue.serverTimestamp()})})}):auth.signInWithEmailAndPassword(e,s);
+  p.then(function(){cl("mAuth")}).catch(function(x){$("am").textContent=({"auth/invalid-credential":"E-mail ou senha incorretos.","auth/email-already-in-use":"Esse e-mail já tem conta.","auth/weak-password":"Senha fraca (mínimo 6 caracteres)."})[x.code]||x.message});
+}
+function ui(){
+  $("bLog").classList.toggle("hid",!!user);$("bOut").classList.toggle("hid",!user);$("bAdm").classList.toggle("hid",!isAdm);
+}
+
+/* ---------- Admin ---------- */
+function clrF(){["fn","fp","fo","fi"].forEach(function(i){$(i).value=""});$("fa").value="1";$("fn").dataset.id=""}
+function saveP(){
+  var d={nome:$("fn").value.trim(),categoria:$("fc").value,preco:parseFloat($("fp").value)||0,promo:parseFloat($("fo").value)||0,imagem:$("fi").value.trim(),ativo:$("fa").value==="1"};
+  if(!d.nome||!d.preco){alert("Preencha nome e preço.");return}
+  var id=$("fn").dataset.id,c=db.collection("produtos");
+  (id?c.doc(id).set(d):c.add(d)).then(clrF).catch(function(e){alert(e.message)});
+}
+function edit(id){var x=find(id);$("fn").value=x.nome;$("fn").dataset.id=id;$("fc").value=x.categoria;$("fp").value=x.preco;$("fo").value=x.promo||"";$("fi").value=x.imagem||"";$("fa").value=x.ativo===false?"0":"1";scrollTo(0,0)}
+function del(id){if(confirm("Excluir produto?"))db.collection("produtos").doc(id).delete()}
+function tbl(){
+  var h="<tr><th>Produto</th><th>Cat.</th><th>Preço</th><th>Promo</th><th>Ativo</th><th></th></tr>";
+  P.forEach(function(x){h+='<tr><td>'+esc(x.nome)+'</td><td>'+esc(x.categoria)+'</td><td>'+R(x.preco)+'</td><td>'+(x.promo?R(x.promo):"—")+'</td><td>'+(x.ativo===false?"não":"sim")+'</td><td><button class="cb o" onclick="edit(\''+x.id+'\')">Editar</button> <button class="cb o" onclick="del(\''+x.id+'\')">✕</button></td></tr>'});
+  $("tb").innerHTML=h;
+}
+function num(v){return parseFloat(String(v||"").replace(/\./g,function(m,o,s){return s.indexOf(",")>-1?"":"."}).replace(",","."))||0}
+function imp(){
+  var L=$("csv").value.trim().split(/\r?\n/).filter(Boolean);
+  if(L.length<2){$("im").textContent="Cole o cabeçalho e ao menos uma linha.";return}
+  var sep=L[0].indexOf(";")>-1?";":",",H=L[0].split(sep).map(function(s){return s.trim().toLowerCase()});
+  var b=db.batch(),n=0;
+  L.slice(1).forEach(function(l){
+    var c=l.split(sep),o={};H.forEach(function(k,i){o[k]=(c[i]||"").trim()});
+    if(!o.nome)return;
+    b.set(db.collection("produtos").doc(),{nome:o.nome,categoria:o.categoria||"Polaroid",preco:num(o.preco),promo:num(o.promo),imagem:o.imagem||"",ativo:true});n++;
+  });
+  b.commit().then(function(){$("im").style.color="";$("im").textContent=n+" produtos importados!";$("csv").value=""}).catch(function(e){$("im").textContent=e.message});
+}
+function saveC(){
+  var d={desconto:parseFloat($("cd").value)||0,aviso:$("ca").value.trim(),whats:$("cw").value.replace(/\D/g,"")};
+  db.collection("config").doc("loja").set(d).then(function(){$("cmm").textContent="Salvo!"}).catch(function(e){$("cmm").textContent=e.message});
+}
+function loadO(){
+  db.collection("pedidos").orderBy("criado","desc").limit(30).get().then(function(s){
+    var h="<tr><th>Data</th><th>Cliente</th><th>Itens</th><th>Total</th></tr>";
+    s.forEach(function(d){var o=d.data();h+="<tr><td>"+(o.criado?o.criado.toDate().toLocaleString("pt-BR"):"")+"</td><td>"+esc(o.email)+"</td><td>"+o.itens.map(function(i){return esc(i.qtd+"x "+i.nome)}).join(", ")+"</td><td>"+R(o.total)+"</td></tr>"});
+    $("po").innerHTML=h;
+  });
+}
+$("csvf").onchange=function(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(){$("csv").value=r.result};r.readAsText(f)};
+
+/* ---------- Início ---------- */
+if(DEMO){
+  P=DEMOP;draw();up();
+  $("oi").textContent="Modo demonstração — configure o Firebase no código";
+}else{
+  firebase.initializeApp(CFG);auth=firebase.auth();db=firebase.firestore();
+  db.collection("produtos").orderBy("nome").onSnapshot(function(s){P=s.docs.map(function(d){var o=d.data();o.id=d.id;return o});draw();up();tbl()});
+  db.collection("config").doc("loja").onSnapshot(function(d){
+    if(d.exists){conf=d.data();if(conf.aviso)$("aviso").textContent="★ "+conf.aviso+" ★";$("cd").value=conf.desconto||"";$("ca").value=conf.aviso||"";$("cw").value=conf.whats||""}
+    draw();up();
+  });
+  auth.onAuthStateChanged(function(u){
+    user=u;isAdm=false;ui();
+    if(u)db.collection("admins").doc(u.uid).get().then(function(d){isAdm=d.exists;ui()}).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>
