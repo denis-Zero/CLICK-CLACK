@@ -93,7 +93,7 @@ td,th{border-bottom:1px solid var(--fg);padding:6px;text-align:left}
   <button class="ch on" data-f="all">Tudo</button><button class="ch" data-f="Polaroid">Polaroids</button><button class="ch" data-f="Foto com ímã">Fotos com ímã</button><button class="ch" data-f="Adesivo">Adesivos</button><button class="ch" data-f="Etiqueta">Etiquetas</button>
 </section>
 <section class="grid" id="g"></section>
-<footer><div class="d">Click!<br>Clack.</div><div><b>Instagram</b> @seuperfil<br><b>WhatsApp</b> (00) 00000-0000</div></footer>
+<footer><div class="d">Click!<br>Clack.</div><div><!-- Instagram oculto por enquanto: <b>Instagram</b> @seuperfil<br> --><b>WhatsApp</b> <a id="fw" href="https://wa.me/5519997181609" target="_blank" rel="noopener" style="color:inherit">(19) 99718-1609</a></div></footer>
 
 <aside class="dr" id="dr">
   <div style="display:flex;justify-content:space-between;align-items:center"><h2 style="font-size:32px">Sacola</h2><button class="cb" onclick="tg()">Fechar</button></div>
@@ -150,7 +150,7 @@ td,th{border-bottom:1px solid var(--fg);padding:6px;text-align:left}
     <div class="fg">
       <label>Desconto geral na loja (%)<input id="cd" type="number" min="0" max="90"></label>
       <label>Aviso da faixa de cima<input id="ca"></label>
-      <label>WhatsApp (DDI+DDD+número)<input id="cw" placeholder="5511999999999"></label>
+      <label>WhatsApp (DDI+DDD+número)<input id="cw" placeholder="5519997181609"></label>
     </div>
     <button class="btn" style="margin-top:10px" onclick="saveC()">Salvar promoções</button>
     <p class="msg" id="cmm"></p>
@@ -196,6 +196,7 @@ function vis(x,i){
   return '<div class="lb" style="'+s+'">'+esc(x.nome.slice(0,14))+'</div>';
 }
 function draw(){
+  if(conf.whats&&$("fw")){$("fw").href="https://wa.me/"+conf.whats;$("fw").textContent="+"+conf.whats}
   var h="";
   P.forEach(function(x,i){
     if(x.ativo===false||(fl!=="all"&&x.categoria!==fl))return;
@@ -237,7 +238,7 @@ function checkout(){
   Object.keys(cart).forEach(function(id){var x=find(id),pp=price(x).p;itens.push({id:id,nome:x.nome,qtd:cart[id],preco:pp});m+="• "+cart[id]+"x "+x.nome+" ("+R(pp)+")\n"});
   m+="Total: "+R(total());
   if(user)m+="\nCliente: "+(user.displayName||user.email);
-  var go=function(){window.open("https://wa.me/"+(conf.whats||"5500000000000")+"?text="+encodeURIComponent(m),"_blank");cart={};up()};
+  var go=function(){window.open("https://wa.me/"+(conf.whats||"5519997181609")+"?text="+encodeURIComponent(m),"_blank");cart={};up()};
   if(DEMO)return go();
   db.collection("pedidos").add({uid:user.uid,email:user.email,itens:itens,total:total(),criado:firebase.firestore.FieldValue.serverTimestamp()}).then(go).catch(function(e){$("cm").textContent="Erro: "+e.message});
 }
