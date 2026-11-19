@@ -110,6 +110,7 @@ td,th{border-bottom:1px solid var(--fg);padding:6px;text-align:left}
   <label>Senha<input id="aS" type="password"></label>
   <p class="msg" id="am"></p>
   <button class="btn" id="aB" onclick="doAuth()">Entrar</button>
+  <button class="cb" onclick="goog()">Entrar com Google</button>
   <button class="cb o" onclick="sw()" id="aT">Criar conta</button>
   <button class="cb o" onclick="cl('mAuth')">Fechar</button>
 </div></div>
@@ -232,6 +233,12 @@ function doAuth(){
   var e=$("aE").value.trim(),s=$("aS").value,n=$("aN").value.trim();
   var p=signup?auth.createUserWithEmailAndPassword(e,s).then(function(c){return c.user.updateProfile({displayName:n}).then(function(){return db.collection("users").doc(c.user.uid).set({nome:n,email:e,criado:firebase.firestore.FieldValue.serverTimestamp()})})}):auth.signInWithEmailAndPassword(e,s);
   p.then(function(){cl("mAuth")}).catch(function(x){$("am").textContent=({"auth/invalid-credential":"E-mail ou senha incorretos.","auth/email-already-in-use":"Esse e-mail já tem conta.","auth/weak-password":"Senha fraca (mínimo 6 caracteres)."})[x.code]||x.message});
+}
+function goog(){
+  if(DEMO){$("am").textContent="Configure o Firebase primeiro.";return}
+  auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(function(r){
+    if(r.additionalUserInfo&&r.additionalUserInfo.isNewUser)return db.collection("users").doc(r.user.uid).set({nome:r.user.displayName||"",email:r.user.email,criado:firebase.firestore.FieldValue.serverTimestamp()});
+  }).then(function(){cl("mAuth")}).catch(function(x){$("am").textContent=x.code==="auth/popup-closed-by-user"?"":x.message});
 }
 function ui(){
   $("bLog").classList.toggle("hid",!!user);$("bOut").classList.toggle("hid",!user);$("bAdm").classList.toggle("hid",!isAdm);
